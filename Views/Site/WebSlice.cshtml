@@ -1,0 +1,26 @@
+﻿@model IEnumerable<EventsWebsite.Models.Events>
+
+@{
+    ViewBag.Title = "Upcoming Events";
+}
+
+<h2>Upcoming Events</h2>
+
+
+<div class="events" style="display:flex;justify-content:space-around;flex-wrap:wrap;align-content:space-around">
+
+
+   
+        @foreach (var events in Model)
+            {
+            <div id="topics">
+                <a id="links" style="font-size: 24px;text-align:center;display:flex;align-items:center;flex-direction:column" href="@Url.Action("Details",
+                    new { id = events.EventId})">
+                    <img style="height: 200px; width:300px;" alt ="@events.Title"
+                         src="@events.ImageEvent" />
+                    <span style="color: #9b9993">@events.Title</span>
+                </a>
+            </div>
+        }
+   
+</div>

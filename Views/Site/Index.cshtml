@@ -1,0 +1,25 @@
+﻿@model IEnumerable<EventsWebsite.Models.Topic>
+@{
+    ViewBag.Title = "Site"; }
+
+<h3>Browse Topics</h3>
+<p> Select from @Model.Count() Topics:</p>
+<div id="topicwdw"style="display:flex;justify-content:space-around;flex-wrap:wrap;">
+
+    @foreach (var topic in Model)
+    {
+
+        <div id="topics">
+            <a id="links" style="font-size: 24px;text-align:center;display:flex;align-items:center;flex-direction:column" href="@Url.Action("Browse",
+                    new { id = topic.TopicId })">
+                <img style="width:300px; height:200px;" alt="@topic.TopicName"
+                     src="@topic.Description" />
+                <span style="color: #9b9993">@topic.TopicName</span>
+            </a>
+        </div>
+    }
+      
+
+</div>
+
+    @{Html.RenderAction("WebSlice", "Site");} 

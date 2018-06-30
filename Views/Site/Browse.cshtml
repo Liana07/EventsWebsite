@@ -1,0 +1,26 @@
+﻿@model EventsWebsite.Models.Topic
+
+@{
+    ViewBag.Title = "Browse";
+}
+
+<h2>Browse</h2>
+
+<div class="events" style="display:flex;justify-content:flex-start;flex-wrap:wrap;align-items:flex-start">
+
+    @foreach (var events in Model.Events)
+            {
+        <div id="topics">
+            <a id="links" style="font-size: 24px;text-align:center;display:flex;align-items:center;flex-direction:column" href="@Url.Action("Details",
+                    new { id = events.EventId})">
+                <img style="width: 200px; height: 200px; border-radius: 3px; margin: 20px 10px 20px 10px;" alt="@events.Title"
+                     src="@events.ImageEvent" />
+                <span style="color: #9b9993">@events.Title</span>
+            </a>
+        </div>
+    }
+
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

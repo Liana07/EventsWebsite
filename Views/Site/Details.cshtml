@@ -1,0 +1,63 @@
+﻿@model EventsWebsite.Models.Events
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+
+    <h4>@Model.Title</h4>
+    
+    <p>
+        <img alt="@Model.Title" style="width:300px; height:300px;" src="@Model.ImageEvent" />
+    </p>
+    <div style="margin-bottom: 5px;color: #5e5b54;font-weight: bold;">
+        <p>
+            <em>Topic:</em>
+            @Model.Topic.TopicName
+        </p>
+        <p>
+            <em>Description:</em>
+            @Model.Description
+        </p>
+        <p>
+            <em>Location:</em>
+            @Model.Location
+        </p>
+        <p>
+            <em>Date:</em>
+            @Model.Date
+        </p>
+
+        <p>
+            @Html.Partial("_Rsvp_status")
+        <p id="whoscoming">
+            <strong>Who's Coming:</strong>
+            @if (Model.Rsvps.Count == 0)
+            {
+                <text>No one has registered.</text>
+            }
+        </p>
+    </div>
+@if (Request.IsAuthenticated)
+{
+        if (Model.Rsvps.Count > 0)
+        {
+            <div id="whoscomingDiv">
+                <ul class="attendees">
+                    @{  var RSPV = Model.Rsvps.Reverse(); }
+                    @foreach (var RSVP in RSPV)
+                    {
+                        <li class="attendee">
+                            <span class="vcard">
+                                <span class="fn nickname">@(RSVP.AttendeeName)</span>
+                            </span>
+                        </li>}
+                </ul>
+            </div>
+                        }
+                        }
+        <p>
+            @Html.ActionLink("Back to List", "Browse", new { id = Model.TopicId })
+        </p>

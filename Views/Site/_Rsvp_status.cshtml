@@ -1,0 +1,47 @@
+﻿@model EventsWebsite.Models.Events
+
+<script type="text/javascript">
+
+	function AnimateRSVPMessage() {
+		$("#rsvpmsg").animate({ fontSize: "1.5em" }, 400);
+	}
+
+</script>
+<div id="rsvpmsg">
+    @if (Request.IsAuthenticated)
+    {
+         if (Model.IsUserRegistered(Context.User.Identity.Name))
+        {
+
+            <p>
+                You are registered for this event!
+            </p>
+
+            @Ajax.ActionLink("Cancel your RSVP",
+                             "CancelAjax", "Rsvp",
+                             new { id = Model.EventId },
+                             new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "rsvpmsg", OnSuccess = "AnimateRSVPMessage" })
+
+        }
+        else 
+            {
+
+            @Ajax.ActionLink("RSVP for this event",
+                             "RegisterAjax", "Rsvp",
+                             new { id = Model.EventId },
+                             new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "rsvpmsg", OnSuccess = "AnimateRSVPMessage" })
+        }
+
+
+
+    }
+
+
+    else 
+    {
+        @Html.ActionLink("RSVP for this event",
+                             "Register", "Rsvp",
+                             new { id = Model.EventId }, null)
+    }
+</div>
+
